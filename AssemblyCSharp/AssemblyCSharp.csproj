@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net35</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>11.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <PackageReference Include="LitJson" Version="0.18.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\game\Dragonboy_vn_v231_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+	  <Reference Include="LitJSON">
+		  <HintPath>..\Lib\LitJson.dll</HintPath>
+	  </Reference>
+  </ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy $(TargetPath) $(SolutionDir)game\Dragonboy_vn_v231_Data\Managed" />
+		<Exec Command="echo xong" />
+	</Target>
+</Project>
