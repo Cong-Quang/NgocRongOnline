@@ -124,7 +124,7 @@ public class Utilities
             while (GameDataStorage.dokhuBoss)
             {
                 chuyenKu(i++);
-                Thread.Sleep(TimeSpan.FromSeconds(2));
+                Thread.Sleep(1500);
             }
         }).Start();
     }
@@ -142,6 +142,16 @@ public class Utilities
             }
         }).Start();
     }
+    [ChatCommand("anitem")]
+    public static void UseItem()
+    {
+        GameScr.info1.addInfo($"Đã ăn item", 0);
+        linhtinh.useItem(381, 0);
+        linhtinh.useItem(1099, 0);
+        linhtinh.useItem(1101, 0);
+        linhtinh.useItem(384, 0);
+        linhtinh.useItem(531, 0);
+    }
     public static void AddHotkeys()
     {
         if (GameCanvas.keyAsciiPress == '/')
@@ -155,6 +165,9 @@ public class Utilities
         {   
             case 'a':
                 chat = "/ak";
+                break;
+            case 'l':
+                chat = "/anitem";
                 break;
             case 'c':
                 chat = "/dungcsdb";

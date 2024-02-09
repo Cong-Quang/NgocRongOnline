@@ -16,11 +16,20 @@ public class linhtinh
                 {
                     if (select == 0)
                     {
-                        Service.gI().useItem(0, 1, (sbyte)index, -1);
+                        try
+                        {
+                            Service.gI().useItem(0, 1, (sbyte)index, -1);
+                        }
+                        catch (Exception) { }
+                        
                     }
                     if (select == 1)
                     {
-                        Service.gI().saleItem((sbyte)1, 1, (short)index);
+                        try
+                        {
+                            Service.gI().saleItem((sbyte)1, 1, (short)index);
+                        }
+                        catch (Exception) { }
                     }
                     break;
                 }
