@@ -45,7 +45,8 @@ public class GameEvents
         if (s.ToLower().Equals("không thể thực hiện"))
         {
             GameDataStorage.dokhuBoss = false;
-        }
+        } 
+
     }
     /// <summary>
     /// hiển thị thông tin ra màn hình
