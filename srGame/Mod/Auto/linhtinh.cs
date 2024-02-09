@@ -28,6 +28,17 @@ public class linhtinh
             }
         }).Start();
     }
+    public static void dapdo()
+    {
+        for (int i = 0; i < GameCanvas.panel.vItemCombine.size(); i++)
+        {
+            if (GameCanvas.panel.vItemCombine.elementAt(i) != null)
+            {
+                Service.gI().combine(1, GameCanvas.panel.vItemCombine);
+                GameCanvas.gI().keyPressedz(-5);
+            }
+        }
+    }
 }
 public class boss
 {

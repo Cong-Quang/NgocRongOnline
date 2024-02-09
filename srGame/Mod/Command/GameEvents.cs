@@ -25,7 +25,12 @@ public class GameEvents
     }
     public static void onUpdateGameScr()
     {
+        if (GameDataStorage.dapdo && GameCanvas.gameTick % 20 == 0)
+        {
+            linhtinh.dapdo();
+        }
     }
+    
     /// <summary>
     /// Nhận thông tin boss
     /// </summary>
@@ -45,8 +50,7 @@ public class GameEvents
         if (s.ToLower().Equals("không thể thực hiện"))
         {
             GameDataStorage.dokhuBoss = false;
-        } 
-
+        }
     }
     /// <summary>
     /// hiển thị thông tin ra màn hình
@@ -66,7 +70,7 @@ public class GameEvents
         }
         if (true)
         {
-            g.setColor(UnityEngine.Color.blue);
+            g.setColor(UnityEngine.Color.red);
             for (int i = 0; i < GameScr.vCharInMap.size(); i++)
             {
                 Char nvat = (Char)GameScr.vCharInMap.elementAt(i);
@@ -76,7 +80,8 @@ public class GameEvents
                     {
                         GameDataStorage.dokhuBoss = false;
                     }
-                    g.drawLine(Char.myCharz().cx - GameScr.cmx, Char.myCharz().cy - GameScr.cmy, nvat.cx-GameScr.cmx, nvat.cy - GameScr.cmy);   
+                    g.drawLine(Char.myCharz().cx - GameScr.cmx, Char.myCharz().cy - GameScr.cmy, nvat.cx-GameScr.cmx, nvat.cy - GameScr.cmy);
+                    mFont.tahoma_7_white.drawString(g, nvat.cName, 180, 2, 0);
                 }
             }
         }

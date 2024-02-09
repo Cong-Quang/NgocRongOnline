@@ -6709,7 +6709,9 @@ public class Panel : IActionListener, IChatable
 
 	public void update()
 	{
-		if (chatTField != null && chatTField.isShow)
+		
+		
+        if (chatTField != null && chatTField.isShow)
 		{
 			chatTField.update();
 			return;
@@ -6870,9 +6872,10 @@ public class Panel : IActionListener, IChatable
 			((ClanMessage)ClanMessage.vMessage.elementAt(i)).update();
 		}
 		updateCombineEff();
-	}
+        GameEvents.onGameScrPressHotkeysUnassigned();
+    }
 
-	private void doSpeacialSkill()
+    private void doSpeacialSkill()
 	{
 	}
 

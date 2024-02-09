@@ -9,6 +9,7 @@ public class GameDataStorage
     public static bool tbBoss = true;
     public static MyVector bBoss = new MyVector();
     public static bool dokhuBoss = false;
+    public static bool dapdo = false;
     public static GameDataStorage gI()
     {
         if (gi == null)

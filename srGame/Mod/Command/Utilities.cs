@@ -142,7 +142,6 @@ public class Utilities
             }
         }).Start();
     }
-
     public static void AddHotkeys()
     {
         if (GameCanvas.keyAsciiPress == '/')
@@ -168,6 +167,10 @@ public class Utilities
                 break;
             case 'h':
                 chat = "/gohomsp";
+                break;
+            case 'd':
+                GameDataStorage.dapdo = !GameDataStorage.dapdo;
+                GameScr.info1.addInfo($"Đập đồ {GameDataStorage.dapdo}",0);
                 break;
             default:
                 chat = "";
