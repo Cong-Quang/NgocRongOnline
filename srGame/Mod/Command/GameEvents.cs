@@ -85,6 +85,8 @@ public class GameEvents
                 }
             }
         }
+        
+        mFont.tahoma_7b_red.drawString(g, $"{TileMap.mapName} Khu {TileMap.zoneID}", 100, 35, 0); 
     }
     /// <summary>
     /// Kích hoạt sau khi game khởi động thành công.

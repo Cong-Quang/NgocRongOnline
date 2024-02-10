@@ -1,6 +1,7 @@
 ﻿using Mod.Auto;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using UnityEngine;
@@ -151,6 +152,8 @@ public class Utilities
         linhtinh.useItem(1101, 0);
         linhtinh.useItem(384, 0);
         linhtinh.useItem(531, 0);
+        linhtinh.useItem(1100, 0);
+        linhtinh.useItem(382, 0);
     }
     public static void AddHotkeys()
     {
@@ -158,37 +161,29 @@ public class Utilities
         {
             ChatTextField.gI().startChat('/', GameScr.gI(), string.Empty);
             return;
-        }   
-       // if (Pk9rXmap.HotKeys()) { return; }   
-        string chat = "";
-        switch (GameCanvas.keyAsciiPress)
-        {   
-            case 'a':
-                chat = "/ak";
-                break;
-            case 'l':
-                chat = "/anitem";
-                break;
-            case 'c':
-                chat = "/dungcsdb";
-                break;
-            case 'b':
-                chat = "/bongtai";
-                break;
-            case 't':
-                chat = "/fcb";
-                break;
-            case 'h':
-                chat = "/gohomsp";
-                break;
-            case 'd':
-                GameDataStorage.dapdo = !GameDataStorage.dapdo;
-                GameScr.info1.addInfo($"Đập đồ {GameDataStorage.dapdo}",0);
-                break;
-            default:
-                chat = "";
-                break;
         }
-        GameEvents.onSendChat(chat);
-    }           
+
+        // Tạo một từ điển ánh xạ từ ký tự vào chuỗi tương ứng
+        Dictionary<char, string> hotkeyMap = new Dictionary<char, string>
+        {
+            {'a', "/ak"},
+            {'â', "/ak"},
+            {'l', "/anitem"},
+            {'c', "/dungcsdb"},
+            {'b', "/bongtai"},
+            {'t', "/fcb"},
+            {'h', "/gohomsp"},
+        };
+
+        // Kiểm tra xem ký tự có tồn tại trong từ điển không
+        if (hotkeyMap.TryGetValue((char)GameCanvas.keyAsciiPress, out string chat))
+        {
+            GameEvents.onSendChat(chat);
+        }
+        else if (GameCanvas.keyAsciiPress == 'd')
+        {
+            GameDataStorage.dapdo = !GameDataStorage.dapdo;
+            GameScr.info1.addInfo($"Đập đồ {GameDataStorage.dapdo}", 0);
+        }
+    }
 }
