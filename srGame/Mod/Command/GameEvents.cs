@@ -25,7 +25,7 @@ public class GameEvents
     }
     public static void onUpdateGameScr()
     {
-        if (GameDataStorage.dapdo && GameCanvas.gameTick % 20 == 0)
+        if (GameDataStorage.dapdo && GameCanvas.gameTick % 10 == 0)
         {
             linhtinh.dapdo();
         }

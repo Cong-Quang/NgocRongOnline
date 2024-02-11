@@ -125,7 +125,7 @@ public class Utilities
             while (GameDataStorage.dokhuBoss)
             {
                 chuyenKu(i++);
-                Thread.Sleep(1500);
+                Thread.Sleep(1340);
             }
         }).Start();
     }
@@ -139,7 +139,7 @@ public class Utilities
             while (GameDataStorage.dokhuBoss)
             {
                 chuyenKu(i++);
-                Thread.Sleep(TimeSpan.FromSeconds(2));
+                Thread.Sleep(1340);
             }
         }).Start();
     }
@@ -174,16 +174,17 @@ public class Utilities
             {'t', "/fcb"},
             {'h', "/gohomsp"},
         };
-
         // Kiểm tra xem ký tự có tồn tại trong từ điển không
         if (hotkeyMap.TryGetValue((char)GameCanvas.keyAsciiPress, out string chat))
         {
             GameEvents.onSendChat(chat);
         }
-        else if (GameCanvas.keyAsciiPress == 'd')
+        else if (GameCanvas.keyAsciiPress == 'd' || GameCanvas.keyAsciiPress == 'đ')
         {
             GameDataStorage.dapdo = !GameDataStorage.dapdo;
             GameScr.info1.addInfo($"Đập đồ {GameDataStorage.dapdo}", 0);
         }
+        GameCanvas.keyAsciiPress = 0;
     }
+
 }
