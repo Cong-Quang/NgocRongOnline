@@ -65,16 +65,6 @@ public class Utilities
         else
             GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
     }
-    [ChatCommand("test")]
-    public static void test()
-    {
-        tesst1.gI.toggle();
-
-        if (tesst1.gI.IsActing)
-            GameScr.info1.addInfo("Test", 0);
-        else
-            GameScr.info1.addInfo("Test", 0);
-    }
     [ChatCommand("bongtai")]
     public static void bongtai()
     {
@@ -97,7 +87,7 @@ public class Utilities
         for (int i = 0; i < GameScr.vCharInMap.size(); i++)
         {
             global::Char @char = (Char)GameScr.vCharInMap.elementAt(i);
-            if (@char.charID < 0 && @char.cTypePk == 5 && !@char.cName.StartsWith("Đ"))
+            if (@char.charID < 0 && @char.cTypePk == 5)
             {
                 global::Char.myCharz().charFocus.charID = @char.charID;
             }
@@ -154,6 +144,16 @@ public class Utilities
         linhtinh.useItem(531, 0);
         linhtinh.useItem(1100, 0);
         linhtinh.useItem(382, 0);
+    }
+    [ChatCommand("upcskb")]
+    public static void Upcskb()
+    {
+        AutoCSKB.gI.toggle();
+
+        if (AutoCSKB.gI.IsActing)
+            GameScr.info1.addInfo("Đang tự tấn công", 0);
+        else
+            GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
     }
     public static void AddHotkeys()
     {

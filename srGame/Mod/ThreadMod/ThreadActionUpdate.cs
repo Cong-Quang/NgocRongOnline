@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 public abstract class ThreadActionUpdate<T> : ThreadAction<T> where T : ThreadActionUpdate<T>, new()
 {
-    private bool isActing;
+    public bool isActing;
 
     public new bool IsActing => isActing;
 
