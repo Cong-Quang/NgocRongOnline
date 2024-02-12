@@ -155,6 +155,17 @@ public class Utilities
         else
             GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
     }
+    [ChatCommand("acn")]
+    public static void acn()
+    {
+        atcn.gI.toggle();
+
+        if (atcn.gI.IsActing)
+            GameScr.info1.addInfo("Đang tự tấn công", 0);
+        else
+            GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
+    }
+
     public static void AddHotkeys()
     {
         if (GameCanvas.keyAsciiPress == '/')

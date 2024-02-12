@@ -2,7 +2,7 @@
 {
     public class AutoAttack : ThreadActionUpdate<AutoAttack>
     {
-        public override int Interval => 100;
+        public override int Interval => 5;
 
         protected override void update()
         {
