@@ -2,7 +2,7 @@
 {
     public class atcn : ThreadActionUpdate<atcn>
     {
-        public override int Interval => 36000;
+        public override int Interval => 600000;
 
         protected override void update()
         {

@@ -151,9 +151,9 @@ public class Utilities
         AutoCSKB.gI.toggle();
 
         if (AutoCSKB.gI.IsActing)
-            GameScr.info1.addInfo("Đang tự tấn công", 0);
+            GameScr.info1.addInfo("Đang bật Upcskb", 0);
         else
-            GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
+            GameScr.info1.addInfo("Đang tắt Upcskb", 0);
     }
     [ChatCommand("acn")]
     public static void acn()
@@ -164,6 +164,17 @@ public class Utilities
             GameScr.info1.addInfo("Đang tự tấn công", 0);
         else
             GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
+    } [ChatCommand("t")]
+    public static void test()
+    {
+        new Thread(delegate ()
+        {
+            while (true)
+            {
+                Thread.Sleep(100);
+                Service.gI().buyItem(0, 379, 0);
+            }
+        }){ IsBackground = true }.Start();
     }
 
     public static void AddHotkeys()
