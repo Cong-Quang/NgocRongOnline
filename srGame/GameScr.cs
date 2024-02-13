@@ -6512,8 +6512,6 @@ public class GameScr : mScreen, IChatable
 		{
 			Cout.LogError("Loi ham OPEN UIZONE " + ex.ToString());
 		}
-		GameCanvas.panel.setTypeZone();		
-		GameCanvas.panel.show();
 	}
 
 	public void showViewInfo()

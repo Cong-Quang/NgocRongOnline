@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Security.Policy;
+using UnityEngine;
 using static System.Net.Mime.MediaTypeNames;
 public class GameEvents
 {
@@ -29,6 +30,8 @@ public class GameEvents
         {
             linhtinh.dapdo();
         }
+        if (GameCanvas.gameTick % (int)(10 * Time.timeScale) == 0)
+            Service.gI().openUIZone();
     }
     
     /// <summary>
