@@ -4,7 +4,7 @@
     {
         public override int Interval => 600000;
 
-        protected override void update()
+        protected override void Update()
         {
             linhtinh.useItem(381, 0);
             linhtinh.useItem(1099, 0);

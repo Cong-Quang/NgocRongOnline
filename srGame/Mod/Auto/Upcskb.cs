@@ -12,8 +12,8 @@ namespace Mod.Auto
         public bool dokhu;
         private static bool isRunningAnMD = false;
         private Thread anMDThread;
-
-        protected override void update()
+        List<WaypointPosition> waypointPositions;
+        protected override void Update()
         {
             if (checkTileMap())
             {
@@ -36,7 +36,7 @@ namespace Mod.Auto
             isRunningAnMD = true;
 
             if (!AutoAttack.gI.IsActing)
-                AutoAttack.gI.toggle();
+                AutoAttack.gI.Toggle();
 
             if (!TanSat.Interval)
                 TanSat.Interval = true;
@@ -80,38 +80,25 @@ namespace Mod.Auto
             return false;
         }
 
-
         private void nextMap()
         {
             int cx = 0;
             int cy = 0;
-
+            waypointPositions = MapUtils.GetWaypointsPositions();
             switch (TileMap.mapID)
             {
                 case 102:
-                    cx = 900;
-                    cy = 360;
-                    break;
                 case 92:
-                    cx = 900 * 2;
-                    cy = 360;
+                case 97:
+                    cx = waypointPositions[0].X;
+                    cy = waypointPositions[0].Y;
                     break;
                 case 93:
-                    cx = 900 * 2;
-                    cy = 280;
-                    break;
                 case 94:
-                    cx = 900 * 2;
-                    cy = 370;
-                    break;
                 case 96:
-                    cx = 900 * 2;
-                    cy = 150;
-                    break;
-                case 97:
                 case 98:
-                    cx = 900 * 2;
-                    cy = 360;
+                    cx = waypointPositions[1].X;
+                    cy = waypointPositions[1].Y;
                     break;
                 default:
                     // Do something if TileMap.mapID doesn't match any case
@@ -125,7 +112,6 @@ namespace Mod.Auto
                 Service.gI().charMove();
             }
         }
-
         private void nextMapQtl()
         {
             if (!checkTileMap())

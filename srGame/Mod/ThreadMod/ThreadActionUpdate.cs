@@ -1,47 +1,55 @@
 ﻿using System.Threading;
+
+/// <summary>
+/// Lớp abstract để quản lý các hành động thực thi bằng thread với khả năng tự cập nhật.
+/// </summary>
+/// <typeparam name="T">Kiểu của lớp kế thừa.</typeparam>
 public abstract class ThreadActionUpdate<T> : ThreadAction<T> where T : ThreadActionUpdate<T>, new()
 {
-    public bool isActing;
-
-    public new bool IsActing => isActing;
+    /// <summary>
+    /// Trạng thái của hành động.
+    /// </summary>
+    public new bool IsActing { get; private set; }
 
     /// <summary>
-    /// Thời gian nghỉ giữa các lần thực thi.
+    /// Thời gian chờ giữa các lần cập nhật.
     /// </summary>
     public abstract int Interval { get; }
 
-    protected override void action()
+    /// <summary>
+    /// Thực thi hành động cập nhật.
+    /// </summary>
+    protected override void Action()
     {
-        while (isActing)
+        while (IsActing)
         {
-            update();
+            Update();
             Thread.Sleep(Interval);
         }
-    } 
+    }
+
     /// <summary>
-    /// Hành động thực hiện.
+    /// Phương thức cập nhật hành động.
     /// </summary>
-    protected abstract void update();
+    protected abstract void Update();
+
     /// <summary>
-    /// Chuyển đổi trạng thái hành động
+    /// Chuyển đổi trạng thái của hành động.
     /// </summary>
-    /// <param name="isActing">Trạng thái hành động muốn chuyển đổi, nếu null thì sẽ đổi qua lại giữa bật và tắt</param>
-    public void toggle(bool? isActing = null)
+    /// <param name="isActing">Trạng thái mới của hành động. Nếu giá trị là null, trạng thái của hành động sẽ đảo ngược.</param>
+    public void Toggle(bool? isActing = null)
     {
         if (isActing == null)
-        {
-            isActing = !this.isActing;
-        }
-        if (this.isActing = (bool)isActing)
-        {
-            this.performAction();
-        }
+            IsActing = !IsActing;
+        else
+            IsActing = (bool)isActing;
+
+        if (IsActing)
+            PerformAction();
         else
         {
             if (base.IsActing)
-            {
-                this.threadAction.Abort();
-            }
+                threadAction.Abort();
         }
     }
 }

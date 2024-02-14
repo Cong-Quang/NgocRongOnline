@@ -1,46 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
+
+/// <summary>
+/// Lớp abstract để quản lý các hành động thực thi bằng thread.
+/// </summary>
+/// <typeparam name="T">Kiểu của lớp kế thừa.</typeparam>
 public abstract class ThreadAction<T> where T : ThreadAction<T>, new()
 {
-    public static T gI { get; } = new();
-    public bool IsActing => this.threadAction?.IsAlive == true;
-    //// <summary>
+    /// <summary>
+    /// Singleton instance của lớp kế thừa.
+    /// </summary>
+    public static T gI { get; } = new T();
+
+    /// <summary>
+    /// Xác định xem hành động đang được thực thi hay không.
+    /// </summary>
+    public bool IsActing => threadAction?.IsAlive == true;
+
+    /// <summary>
     /// Thread sử dụng để thực thi hành động.
     /// </summary>
     protected Thread threadAction;
+
     /// <summary>
-    /// Hành động cần thực hiện.
+    /// Phương thức trừu tượng để định nghĩa hành động cụ thể.
     /// </summary>
-    protected abstract void action();
+    protected abstract void Action();
+
     /// <summary>
     /// Thực thi hành động bằng thread của instance.
     /// </summary>
-    public void performAction()
+    public void PerformAction()
     {
-        if (this.IsActing)
-            this.threadAction.Abort();
+        if (IsActing)
+            threadAction.Abort();
 
-       this.executeAction();
+        ExecuteAction();
     }
+
     /// <summary>
     /// Sử dụng thread của instance để thực thi hành động.
     /// </summary>
-    /// <param name="isReturn">Dùng check return của action khi khác thread.</param>
-    protected void executeAction()
+    protected void ExecuteAction()
     {
-        // Không thực hiện hành động trong luồng khác
-        if (Thread.CurrentThread != this.threadAction)
+        // Nếu đang không ở trong thread của instance, tạo một thread mới và thực thi hành động.
+        if (Thread.CurrentThread != threadAction)
         {
-            this.threadAction = new Thread(this.executeAction)
+            threadAction = new Thread(ExecuteAction)
             {
                 IsBackground = true
             };
-            this.threadAction.Start();
+            threadAction.Start();
             return;
         }
-        this.action();
+
+        // Thực thi hành động cụ thể.
+        Action();
     }
 }

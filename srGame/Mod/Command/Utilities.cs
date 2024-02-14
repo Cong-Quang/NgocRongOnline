@@ -37,7 +37,7 @@ public class Utilities
     [ChatCommand("ak")]
     public static void ToggleAutoAttack()
     {
-        AutoAttack.gI.toggle();
+        AutoAttack.gI.Toggle();
         string message = AutoAttack.gI.IsActing ? "Đang tự tấn công" : "Đã tắt tự tấn công";
         GameScr.info1.addInfo(message, 0);
     }
@@ -124,7 +124,7 @@ public class Utilities
     [ChatCommand("upcskb")]
     public static void Upcskb()
     {
-        AutoCSKB.gI.toggle();
+        AutoCSKB.gI.Toggle();
         TanSat.Interval = !TanSat.Interval;
 
         string message = AutoCSKB.gI.IsActing ? "Đang bật Upcskb" : "Đang tắt Upcskb";
@@ -135,7 +135,7 @@ public class Utilities
     [ChatCommand("acn")]
     public static void Acn()
     {
-        atcn.gI.toggle();
+        atcn.gI.Toggle();
         string message = atcn.gI.IsActing ? "Đang tự tấn công" : "Đã tắt tự tấn công";
         GameScr.info1.addInfo(message, 0);
     }
@@ -147,7 +147,10 @@ public class Utilities
 
     // Phương thức Test() được sử dụng cho mục đích kiểm tra
     [ChatCommand("t")]
-    public static void Test() { }
+    public static void Test(int t) 
+    {
+       
+    }
 
     // Phương thức AddHotkeys() thêm các phím tắt vào trò chơi
     public static void AddHotkeys()

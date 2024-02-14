@@ -1,4 +1,4 @@
-public class Waypoint : IActionListener
+﻿public class Waypoint : IActionListener
 {
 	public short minX;
 

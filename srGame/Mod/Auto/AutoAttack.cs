@@ -9,7 +9,7 @@ namespace Mod.Auto
         public override int Interval => 5;
 
         // Phương thức update được ghi đè để thực hiện logic tự động tấn công
-        protected override void update()
+        protected override void Update()
         {
             // Lấy thông tin của nhân vật của người chơi
             var myChar = Char.myCharz();

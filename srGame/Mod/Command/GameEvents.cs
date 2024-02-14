@@ -87,11 +87,11 @@ public class GameEvents
                 g.drawLine(Char.myCharz().cx - GameScr.cmx, Char.myCharz().cy - GameScr.cmy, nvat.cx - GameScr.cmx, nvat.cy - GameScr.cmy);
                 mFont.tahoma_7_white.drawString(g, nvat.cName, 180, 2, 0);
             }
-
         }
 
         // Hiển thị thông tin về vị trí bản đồ và khu vực hiện tại
         mFont.tahoma_7b_red.drawString(g, $"{TileMap.mapName} Khu {TileMap.zoneID} ID {TileMap.mapID}", 100, 35, 0);
+        mFont.tahoma_7b_red.drawString(g, $"[x]{Char.myCharz().cx}  [y]{Char.myCharz().cy}", 100, 45, 0);
     }
 
     // Phương thức OnGameStarted() được gọi khi trò chơi bắt đầu, tải các lệnh chat mặc định
