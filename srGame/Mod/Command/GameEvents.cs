@@ -1,4 +1,5 @@
 ﻿using Mod.Auto; // Sử dụng namespace Mod.Auto để truy cập các lớp và phương thức trong đó
+using System;
 using System.Collections; // Sử dụng namespace System.Collections để sử dụng các cấu trúc dữ liệu dạng ICollection
 using System.Threading; // Sử dụng namespace System.Threading để sử dụng luồng và đa luồng
 using UnityEngine; // Sử dụng namespace UnityEngine để sử dụng các thành phần của Unity
@@ -86,6 +87,7 @@ public class GameEvents
                 g.drawLine(Char.myCharz().cx - GameScr.cmx, Char.myCharz().cy - GameScr.cmy, nvat.cx - GameScr.cmx, nvat.cy - GameScr.cmy);
                 mFont.tahoma_7_white.drawString(g, nvat.cName, 180, 2, 0);
             }
+
         }
 
         // Hiển thị thông tin về vị trí bản đồ và khu vực hiện tại
