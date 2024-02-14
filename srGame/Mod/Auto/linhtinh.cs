@@ -1,43 +1,49 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading;
+
 public class linhtinh
 {
+    public static bool checkUseItem = true;
+
     /// <summary>
-    /// hàm nay dung để bán hoặc mua item [0 = sử dụng] [1 = bán]
+    /// Hàm này được sử dụng để sử dụng hoặc bán item [0 = sử dụng] [1 = bán]
     /// </summary> 
-    public static void useItem(int IDitem, int select)
+    public static void useItem(int itemId, int select)
     {
-        new Thread(() =>
+        checkUseItem = true;
+        ThreadPool.QueueUserWorkItem((state) =>
         {
-            int index = 0;
-            while (index < global::Char.myCharz().arrItemBag.Length)
+            var charInstance = global::Char.myCharz(); // Lấy một lần để tránh gọi nhiều lần trong vòng lặp
+            for (int index = 0; index < charInstance.arrItemBag.Length; index++)
             {
-                if (global::Char.myCharz().arrItemBag[index].template.id == IDitem)
+                var currentItem = charInstance.arrItemBag[index];
+                if (currentItem.template.id == itemId)
                 {
-                    if (select == 0)
+                    try
                     {
-                        try
+                        switch (select)
                         {
-                            Service.gI().useItem(0, 1, (sbyte)index, -1);
+                            case 0:
+                                Service.gI().useItem(0, 1, (sbyte)index, -1);
+                                break;
+                            case 1:
+                                Service.gI().saleItem((sbyte)1, 1, (short)index);
+                                break;
+                            default:
+                                break;
                         }
-                        catch (Exception) { }
-                        
                     }
-                    if (select == 1)
+                    catch (Exception)
                     {
-                        try
-                        {
-                            Service.gI().saleItem((sbyte)1, 1, (short)index);
-                        }
-                        catch (Exception) { }
+                        checkUseItem = false;
                     }
                     break;
                 }
-                index++;
             }
-        }).Start();
+        });
     }
+
+    // Phương thức dapdo() thực hiện logic sử dụng kỹ năng "đập đồ"
     public static void dapdo()
     {
         for (int i = 0; i < GameCanvas.panel.vItemCombine.size(); i++)
@@ -50,12 +56,15 @@ public class linhtinh
         }
     }
 }
+
 public class boss
 {
     public string tenboss;
     public string khuvuc;
     public int idmap;
     public DateTime timeboss;
+
+    // Constructor của lớp boss, khởi tạo các thuộc tính
     public boss(string a)
     {
         a = a.Replace("boss ", "");
@@ -67,6 +76,8 @@ public class boss
         this.idmap = MapId(this.khuvuc);
         this.timeboss = DateTime.Now;
     }
+
+    // Phương thức trả về ID của map dựa trên tên khu vực
     public int MapId(string a)
     {
         for (int i = 0; i < TileMap.mapName.Length; i++)
@@ -78,6 +89,8 @@ public class boss
         }
         return -1;
     }
+
+    // Phương thức vẽ thông tin về boss trên màn hình
     public void paintboss(mGraphics a, int b, int c, int d)
     {
         if (GameDataStorage.tbBoss)

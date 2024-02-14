@@ -101,7 +101,7 @@ public class Main : MonoBehaviour
 		{
             Screen.SetResolution(loadedData.Client.width, loadedData.Client.height, fullscreen: false);
         }
-        GameEvents.onGameStarted();
+        GameEvents.OnGameStarted();
     }
 
 	private void SetInit()

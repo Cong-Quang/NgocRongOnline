@@ -1,23 +1,111 @@
-﻿using AssemblyCSharp.Mod.Xmap;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
-
+using System.Linq;
 namespace Mod.Auto
 {
     public class AutoCSKB : ThreadActionUpdate<AutoCSKB>
     {
         public override int Interval => 500;
+        private int zone;
+        public bool dokhu;
 
         protected override void update()
         {
-            // nextMapQtl();
-            Waypoint w = FindWaypoint(TileMap.mapID);
-
-            MoveMyChar(720,720);
+            if (checkTileMap())
+            {
+                nextMap();
+            }
+            nextMapQtl();
+            anMD();
         }
+
+        private void anMD()
+        {
+            if (!AutoAttack.gI.IsActing)
+                AutoAttack.gI.toggle();
+
+            if (!TanSat.Interval)
+                TanSat.Interval = true;
+
+            if (TileMap.mapID == 99)
+            {
+                dokhux();
+                linhtinh.useItem(379, 0);
+                Thread.Sleep(1800000); // This might need further optimization
+                for (int i = 0; i < 500 && linhtinh.checkUseItem; i++)
+                {
+                    linhtinh.useItem(380, 0);
+                    Thread.Sleep(50);
+                }
+            }
+        }
+
+        private void dokhux()
+        {
+            while (dokhu || checkKhu())
+            {
+                Utilities.ChuyenKu(zone++);
+                Thread.Sleep(1340);
+            }
+        }
+
+        private bool checkKhu()
+        {
+            for (int i = 0; i < GameScr.vCharInMap.size(); i++)
+            {
+                Char nvat = (Char)GameScr.vCharInMap.elementAt(i);
+                if (nvat != null)
+                    return true;
+            }
+            return false;
+        }
+
+
+        private void nextMap()
+        {
+            int cx = 0;
+            int cy = 0;
+
+            switch (TileMap.mapID)
+            {
+                case 102:
+                    cx = 900;
+                    cy = 360;
+                    break;
+                case 92:
+                    cx = 900 * 2;
+                    cy = 360;
+                    break;
+                case 93:
+                    cx = 900 * 2;
+                    cy = 280;
+                    break;
+                case 94:
+                    cx = 900 * 2;
+                    cy = 370;
+                    break;
+                case 96:
+                    cx = 900 * 2;
+                    cy = 150;
+                    break;
+                case 97:
+                case 98:
+                    cx = 900 * 2;
+                    cy = 360;
+                    break;
+                default:
+                    // Do something if TileMap.mapID doesn't match any case
+                    break;
+            }
+
+            if (TileMap.mapID != 99)
+            {
+                Char.myCharz().cx = cx;
+                Char.myCharz().cy = cy;
+                Service.gI().charMove();
+            }
+        }
+
         private void nextMapQtl()
         {
             if (!checkTileMap())
@@ -32,64 +120,14 @@ namespace Mod.Auto
                 {
                     Service.gI().openMenu(38);
                     Service.gI().confirmMenu(38, 1);
-                    
                 }
             }
         }
 
         public static bool checkTileMap()
         {
-            HashSet<int> validMapIDs = new HashSet<int> { 102, 92, 93, 94, 96, 98, 99 };
+            HashSet<int> validMapIDs = new HashSet<int> { 102, 92, 93, 94, 96, 97, 98, 99 };
             return validMapIDs.Contains(TileMap.mapID);
-        }
-        private Waypoint FindWaypoint(int idMap)
-        {
-            Waypoint waypoint;
-            string textPopup;
-            for (int i = 0; i < TileMap.vGo.size(); i++)
-            {
-                waypoint = (Waypoint)TileMap.vGo.elementAt(i);
-                textPopup = GetTextPopup(waypoint.popup);
-                if (textPopup.Equals(TileMap.mapNames[idMap]))
-                {
-                    return waypoint;
-                }
-            }
-            return null;
-        }
-        private  string GetTextPopup(PopUp popUp)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < popUp.says.Length; i++)
-            {
-                stringBuilder.Append(popUp.says[i]);
-                stringBuilder.Append(" ");
-            }
-            return stringBuilder.ToString().Trim();
-        }
-        private int GetPosWaypointX(Waypoint waypoint)
-        {
-            if (waypoint.maxX < 60)
-                return 15;
-            if (waypoint.minX > TileMap.pxw - 60)
-                return TileMap.pxw - 15;
-            return waypoint.minX + 30;
-        }
-        private int GetPosWaypointY(Waypoint waypoint)
-        {
-            return waypoint.maxY;
-        }
-        public static void MoveMyChar(int x, int y)
-        {
-            Char.myCharz().cx = x;
-            Char.myCharz().cy = y;
-            Service.gI().charMove();
-            Char.myCharz().cx = x;
-            Char.myCharz().cy = y + 1;
-            Service.gI().charMove();
-            Char.myCharz().cx = x;
-            Char.myCharz().cy = y;
-            Service.gI().charMove();
         }
     }
 }

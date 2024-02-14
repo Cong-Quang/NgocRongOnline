@@ -1686,7 +1686,7 @@ public class Service
 	{
 		if (Pk9rXmap.Chat(text))
 			return;
-        if (GameEvents.onSendChat(text))
+        if (GameEvents.OnSendChat(text))
             return;
 		Message message = null;
 		try

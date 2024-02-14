@@ -1,126 +1,98 @@
-﻿using Mod.Auto;
-using System;
+﻿using Mod.Auto; // Sử dụng namespace Mod.Auto để truy cập các lớp và phương thức trong đó
 using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
-using UnityEngine;
+using System.Collections.Generic; // Sử dụng namespace System.Collections.Generic để sử dụng các cấu trúc dữ liệu dạng Dictionary
+using System.Threading; // Sử dụng namespace System.Threading để sử dụng luồng và đa luồng
+using UnityEngine; // Sử dụng namespace UnityEngine để sử dụng các thành phần của Unity
+
 public class Utilities
 {
+    // Hằng số DelayDokhu định nghĩa khoảng thời gian chờ giữa các lần chuyển khu khi đang ở chế độ đỏ khu
+    private const int DelayDokhu = 1340;
+
+    // Phương thức EditSpeedRun() cho phép chỉnh sửa tốc độ chạy của nhân vật
     [ChatCommand("tdc")]
     [ChatCommand("cspeed")]
     [ChatCommand("s")]
-    public static void editSpeedRun(int speed)
+    public static void EditSpeedRun(int speed)
     {
         Char.myCharz().cspeed = speed;
         GameScr.info1.addInfo("Tốc độ chạy: " + speed, 0);
     }
-    [ChatCommand("cheat")]
+
+    // Phương thức Cheat() cho phép chỉnh sửa tốc độ chơi của trò chơi
     [ChatCommand("chs")]
+    [ChatCommand("cheat")]
     public static void Cheat(float speed)
     {
         Time.timeScale = speed;
         GameScr.info1.addInfo("Tốc độ game: " + speed, 0);
     }
-    /// <summary>
-    /// Sử dụng skill Trị thương của namec vào bản thân
-    /// </summary>
-    [ChatCommand("hsme")]
-    public static void buffMe()
-    {
-        sbyte idSkill = Char.myCharz().myskill.template.id;
-
-        SkillTemplate skillTemplate = new();
-        skillTemplate.id = 7;
-        Skill skill = Char.myCharz().getSkill(skillTemplate);
-
-        Service.gI().selectSkill(skillTemplate.id);
-
-        MyVector vMe = new();
-        vMe.addElement(Char.myCharz());
-
-        Service.gI().sendPlayerAttack(new MyVector(), vMe, -1);
-
-        skill.lastTimeUseThisSkill = mSystem.currentTimeMillis();
-        Service.gI().selectSkill(idSkill);  
-    }
+    // Phương thức AddKeyMap() thêm các phím tắt vào bản đồ phím tắt
     public static void AddKeyMap(Hashtable h)
     {
         h.Add(KeyCode.Slash, 47);
     }
-   /* [ChatCommand("move")]
-    public static void movemap()
-    {
-        Char.myCharz().cx = 50;
-        Char.myCharz().cy = 50;
-        Service.gI().charMove();
-    }*/
+
+    // Phương thức ToggleAutoAttack() bật hoặc tắt tính năng tự động tấn công
     [ChatCommand("ak")]
-    public static void toggleAutoAttack()
+    public static void ToggleAutoAttack()
     {
         AutoAttack.gI.toggle();
+        string message = AutoAttack.gI.IsActing ? "Đang tự tấn công" : "Đã tắt tự tấn công";
+        GameScr.info1.addInfo(message, 0);
+    }
 
-        if (AutoAttack.gI.IsActing)
-            GameScr.info1.addInfo("Đang tự tấn công", 0);
-        else
-            GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
-    }
+    // Các phương thức dùng item cụ thể
     [ChatCommand("bongtai")]
-    public static void bongtai()
-    {
-        linhtinh.useItem(454,0);
-    }
+    public static void Bongtai() => linhtinh.useItem(921, 0);
+
     [ChatCommand("dungcsdb")]
-    public static void dungcsdb()
-    {               
-        linhtinh.useItem(194, 0);
-    }
+    public static void Dungcsdb() => linhtinh.useItem(194, 0);
+
+    // Phương thức ThongBaoBoss() bật hoặc tắt thông báo xuất hiện của boss
     [ChatCommand("tbb")]
-    public static void thongbaoboss()
+    public static void ThongBaoBoss()
     {
         GameDataStorage.tbBoss = !GameDataStorage.tbBoss;
-        GameScr.info1.addInfo($"Thông báo boss [{GameDataStorage.tbBoss}]",0);
+        string message = $"Thông báo boss [{GameDataStorage.tbBoss}]";
+        GameScr.info1.addInfo(message, 0);
     }
+
+    // Phương thức FocusCharBoss() chuyển sự chú ý của nhân vật chính tới boss
     [ChatCommand("fcb")]
-    public static void fcboss()
+    public static void FocusCharBoss()
     {
         for (int i = 0; i < GameScr.vCharInMap.size(); i++)
         {
-            global::Char @char = (Char)GameScr.vCharInMap.elementAt(i);
+            Char @char = (Char)GameScr.vCharInMap.elementAt(i);
             if (@char.charID < 0 && @char.cTypePk == 5)
             {
-                global::Char.myCharz().charFocus.charID = @char.charID;
+                Char.myCharz().charFocus.charID = @char.charID;
+                break;
             }
         }
     }
+    // Phương thức ChuyenKu() chuyển khu vực của nhân vật chính
     [ChatCommand("k")]
-    public static void chuyenKu(int khu)
-    {
-        Service.gI().requestChangeZone(khu,-1);
-    }
+    public static void ChuyenKu(int khu) => Service.gI().requestChangeZone(khu, -1);
+
+    // Phương thức Gohomsp() chuyển về nhà và mở trang bản đồ
     [ChatCommand("gohomsp")]
-    public static void gohomsp()
+    public static void Gohomsp()
     {
         linhtinh.useItem(194, 0);
         Service.gI().requestMapSelect(0);
     }
 
+    // Phương thức Dokhu() bật hoặc tắt chế độ đỏ khu
     [ChatCommand("dokhu")]
-    public static void dokhu()
-    {
-        GameDataStorage.dokhuBoss = !GameDataStorage.dokhuBoss;
-        new Thread(() =>
-        {
-            int i = 0;
-            while (GameDataStorage.dokhuBoss)
-            {
-                chuyenKu(i++);
-                Thread.Sleep(1340);
-            }
-        }).Start();
-    }
+    public static void Dokhu() => StartDokhu(0);
+
     [ChatCommand("dokhu")]
-    public static void dokhu(int start)
+    public static void Dokhu(int start) => StartDokhu(start);
+
+    // Phương thức StartDokhu() bắt đầu chế độ đỏ khu
+    private static void StartDokhu(int start)
     {
         GameDataStorage.dokhuBoss = !GameDataStorage.dokhuBoss;
         new Thread(() =>
@@ -128,11 +100,13 @@ public class Utilities
             int i = start;
             while (GameDataStorage.dokhuBoss)
             {
-                chuyenKu(i++);
-                Thread.Sleep(1340);
+                ChuyenKu(i++);
+                Thread.Sleep(DelayDokhu);
             }
         }).Start();
     }
+
+    // Phương thức UseItem() sử dụng một số item cụ thể
     [ChatCommand("anitem")]
     public static void UseItem()
     {
@@ -145,47 +119,47 @@ public class Utilities
         linhtinh.useItem(1100, 0);
         linhtinh.useItem(382, 0);
     }
+
+    // Phương thức Upcskb() bật hoặc tắt tính năng tự động nâng cấp cơ sở kiến thức
     [ChatCommand("upcskb")]
     public static void Upcskb()
     {
         AutoCSKB.gI.toggle();
+        TanSat.Interval = !TanSat.Interval;
 
-        if (AutoCSKB.gI.IsActing)
-            GameScr.info1.addInfo("Đang bật Upcskb", 0);
-        else
-            GameScr.info1.addInfo("Đang tắt Upcskb", 0);
+        string message = AutoCSKB.gI.IsActing ? "Đang bật Upcskb" : "Đang tắt Upcskb";
+        GameScr.info1.addInfo(message, 0);
     }
+
+    // Phương thức Acn() bật hoặc tắt tính năng tự động tấn công
     [ChatCommand("acn")]
-    public static void acn()
+    public static void Acn()
     {
         atcn.gI.toggle();
-
-        if (atcn.gI.IsActing)
-            GameScr.info1.addInfo("Đang tự tấn công", 0);
-        else
-            GameScr.info1.addInfo("Đã tắt tự tấn công", 0);
-    } [ChatCommand("t")]
-    public static void test()
-    {
-        new Thread(delegate ()
-        {
-            while (true)
-            {
-                Thread.Sleep(100);
-                Service.gI().buyItem(0, 379, 0);
-            }
-        }){ IsBackground = true }.Start();
+        string message = atcn.gI.IsActing ? "Đang tự tấn công" : "Đã tắt tự tấn công";
+        GameScr.info1.addInfo(message, 0);
     }
 
+    // Phương thức ToggleTanSat() bật hoặc tắt tính năng tấn sát
+    [ChatCommand("tansat")]
+    [ChatCommand("ts")]
+    public static void ToggleTanSat() => TanSat.Interval = !TanSat.Interval;
+
+    // Phương thức Test() được sử dụng cho mục đích kiểm tra
+    [ChatCommand("t")]
+    public static void Test() { }
+
+    // Phương thức AddHotkeys() thêm các phím tắt vào trò chơi
     public static void AddHotkeys()
     {
+        // Nếu phím nhấn là phím "/", bắt đầu chat
         if (GameCanvas.keyAsciiPress == '/')
         {
             ChatTextField.gI().startChat('/', GameScr.gI(), string.Empty);
             return;
         }
 
-        // Tạo một từ điển ánh xạ từ ký tự vào chuỗi tương ứng
+        // Tạo một bản đồ ánh xạ từ ký tự phím tắt sang lệnh chat
         Dictionary<char, string> hotkeyMap = new Dictionary<char, string>
         {
             {'a', "/ak"},
@@ -196,11 +170,13 @@ public class Utilities
             {'t', "/fcb"},
             {'h', "/gohomsp"},
         };
-        // Kiểm tra xem ký tự có tồn tại trong từ điển không
+
+        // Nếu phím nhấn có trong bản đồ ánh xạ, gửi lệnh chat tương ứng
         if (hotkeyMap.TryGetValue((char)GameCanvas.keyAsciiPress, out string chat))
         {
-            GameEvents.onSendChat(chat);
+            GameEvents.OnSendChat(chat);
         }
+        // Nếu phím nhấn là phím 'd' hoặc 'đ', bật hoặc tắt tính năng đập đồ
         else if (GameCanvas.keyAsciiPress == 'd' || GameCanvas.keyAsciiPress == 'đ')
         {
             GameDataStorage.dapdo = !GameDataStorage.dapdo;
@@ -208,5 +184,4 @@ public class Utilities
         }
         GameCanvas.keyAsciiPress = 0;
     }
-
 }

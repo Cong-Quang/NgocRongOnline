@@ -6872,7 +6872,7 @@ public class Panel : IActionListener, IChatable
             ((ClanMessage)ClanMessage.vMessage.elementAt(i)).update();
         }
         updateCombineEff();
-        GameEvents.onGameScrPressHotkeysUnassigned();
+        GameEvents.OnGameScrPressHotkeysUnassigned();
     }
 
     private void doSpeacialSkill()

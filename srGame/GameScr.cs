@@ -2742,7 +2742,7 @@ public class GameScr : mScreen, IChatable
 						{
 							ChatTextField.gI().startChat(this, string.Empty);
 						}
-						else GameEvents.onGameScrPressHotkeysUnassigned();
+						else GameEvents.OnGameScrPressHotkeysUnassigned();
                     }
 					else if (!GameCanvas.isMoveNumberPad)
 					{
@@ -3451,7 +3451,7 @@ public class GameScr : mScreen, IChatable
 		return false;
 	}
 
-	private void doDoubleClickToObj(IMapObject obj)
+	public void doDoubleClickToObj(IMapObject obj)
 	{
 		if ((obj.Equals(Char.myCharz().npcFocus) || mobCapcha == null) && !checkClickToBotton(obj))
 		{
@@ -4443,7 +4443,7 @@ public class GameScr : mScreen, IChatable
 
 	public override void update()
 	{
-        GameEvents.onUpdateGameScr();	
+        GameEvents.OnUpdateGameScr();	
         if (GameCanvas.keyPressed[16])
 		{
 			GameCanvas.keyPressed[16] = false;
@@ -5104,7 +5104,7 @@ public class GameScr : mScreen, IChatable
 		paint_xp_bar(g);
         if (!isPaintOther)
 		{
-            GameEvents.onPaint(g);
+            GameEvents.OnPaint(g);
 
             if (GameCanvas.open3Hour)
 			{
