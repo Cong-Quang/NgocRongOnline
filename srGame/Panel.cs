@@ -3494,6 +3494,10 @@ public class Panel : IActionListener, IChatable
                     {
                         Service.gI().requestChangeZone(selected, -1);
                     }
+                    else if (type == 14)
+                    {
+                        Service.gI().requestMapSelect(selected);
+                    }
                 }
             }
             if (isSelectPlayerMenu)

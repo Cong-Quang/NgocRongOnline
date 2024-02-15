@@ -168,9 +168,13 @@ public class Teleport
 			g.drawRegion(maybay[3], 0, 0, mGraphics.getImageWidth(maybay[3]), mGraphics.getImageHeight(maybay[3]), (dir == 1) ? 2 : 0, x, y, StaticObj.BOTTOM_HCENTER);
 		}
 	}
-
+	
 	public void update()
 	{
+		if (MapUtils.xoataubay(this))
+		{
+			return;
+		}
 		if (planet > 2 && paintFire && y != -80)
 		{
 			if (isDown && tPrepare == 0)
