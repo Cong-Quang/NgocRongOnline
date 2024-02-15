@@ -147,7 +147,7 @@ public class Utilities
 
     // Phương thức Test() được sử dụng cho mục đích kiểm tra
     [ChatCommand("t")]
-    public static void Test(int t) 
+    public static void Test() 
     {
        
     }

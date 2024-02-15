@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Mod.Auto
 {
-    public class AutoCSKB : ThreadActionUpdate<AutoCSKB>
+    public class upColl : ThreadActionUpdate<upColl>
     {
         public override int Interval => 500;
         private int zone;
