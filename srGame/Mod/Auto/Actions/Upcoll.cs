@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 
-namespace Mod.Auto
+namespace Mod.Auto.Actions
 {
-    public class AutoCSKB : ThreadActionUpdate<AutoCSKB>
+    public class upColl : ThreadActionUpdate<upColl>
     {
         public override int Interval => 500;
         private int zone;

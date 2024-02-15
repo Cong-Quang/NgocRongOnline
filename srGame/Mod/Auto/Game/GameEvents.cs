@@ -1,8 +1,6 @@
-﻿using Mod.Auto; // Sử dụng namespace Mod.Auto để truy cập các lớp và phương thức trong đó
-using System;
-using System.Collections; // Sử dụng namespace System.Collections để sử dụng các cấu trúc dữ liệu dạng ICollection
-using System.Threading; // Sử dụng namespace System.Threading để sử dụng luồng và đa luồng
-using UnityEngine; // Sử dụng namespace UnityEngine để sử dụng các thành phần của Unity
+﻿using UnityEngine;
+using Mod.Auto.Actions;
+using System.Collections; 
 
 public class GameEvents
 {
@@ -39,10 +37,10 @@ public class GameEvents
     {
         if (s.ToLower().StartsWith("boss"))
         {
-            GameDataStorage.bBoss.addElement(new boss(s));
-            if (GameDataStorage.bBoss.size() > 7)
+            NotifBoss.bBoss.addElement(new NotifBoss(s));
+            if (NotifBoss.bBoss.size() > 7)
             {
-                GameDataStorage.bBoss.removeElementAt(0);
+                NotifBoss.bBoss.removeElementAt(0);
             }
         }
     }
@@ -52,7 +50,7 @@ public class GameEvents
     {
         if (s.ToLower().Equals("không thể thực hiện"))
         {
-            GameDataStorage.dokhuBoss = false;
+            NotifBoss.dokhuBoss = false;
         }
     }
 
@@ -60,14 +58,14 @@ public class GameEvents
     public static void OnPaint(mGraphics g)
     {
         // Vẽ thông tin về boss trên giao diện
-        if (GameDataStorage.tbBoss)
+        if (NotifBoss.tbBoss)
         {
             int num = 42;
-            for (int i = 0; i < GameDataStorage.bBoss.size(); i++)
+            for (int i = 0; i < NotifBoss.bBoss.size(); i++)
             {
                 g.setColor(2721889, 0.5f);
                 g.fillRect(GameCanvas.w - 23, num + 2, 25, 9);
-                ((boss)GameDataStorage.bBoss.elementAt(i)).paintboss(g, GameCanvas.w - 2, num, mFont.RIGHT);
+                ((NotifBoss)NotifBoss.bBoss.elementAt(i)).paintboss(g, GameCanvas.w - 2, num, mFont.RIGHT);
                 num += 10;
             }
         }
@@ -80,9 +78,9 @@ public class GameEvents
             if (nvat.cTypePk == 5)
             {
                 AutoCSKB.gI.dokhu = true;
-                if (GameDataStorage.dokhuBoss == true)
+                if (NotifBoss.dokhuBoss == true)
                 {
-                    GameDataStorage.dokhuBoss = false;
+                    NotifBoss.dokhuBoss = false;
                 }
                 g.drawLine(Char.myCharz().cx - GameScr.cmx, Char.myCharz().cy - GameScr.cmy, nvat.cx - GameScr.cmx, nvat.cy - GameScr.cmy);
                 mFont.tahoma_7_white.drawString(g, nvat.cName, 180, 2, 0);

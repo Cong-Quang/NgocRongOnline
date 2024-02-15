@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 
-namespace Mod.Auto
+namespace Mod.Auto.Actions
 {
     // Lớp AutoAttack thực thi ThreadActionUpdate để thực hiện việc tự động tấn công
     public class AutoAttack : ThreadActionUpdate<AutoAttack>
     {
-        // Phương thức Interval được ghi đè để trả về khoảng thời gian giữa các lần cập nhật (5 miligiây)
-        public override int Interval => 5;
+        // Phương thức Interval được ghi đè để trả về khoảng thời gian giữa các lần cập nhật (123 miligiây)
+        public override int Interval => 123;
 
         // Phương thức update được ghi đè để thực hiện logic tự động tấn công
         protected override void Update()

@@ -1,8 +1,9 @@
-﻿using Mod.Auto; // Sử dụng namespace Mod.Auto để truy cập các lớp và phương thức trong đó
+﻿using UnityEngine;
+using Mod.Auto.Actions;
+using System.Threading;
 using System.Collections;
-using System.Collections.Generic; // Sử dụng namespace System.Collections.Generic để sử dụng các cấu trúc dữ liệu dạng Dictionary
-using System.Threading; // Sử dụng namespace System.Threading để sử dụng luồng và đa luồng
-using UnityEngine; // Sử dụng namespace UnityEngine để sử dụng các thành phần của Unity
+using System.Collections.Generic;
+
 
 public class Utilities
 {
@@ -53,8 +54,8 @@ public class Utilities
     [ChatCommand("tbb")]
     public static void ThongBaoBoss()
     {
-        GameDataStorage.tbBoss = !GameDataStorage.tbBoss;
-        string message = $"Thông báo boss [{GameDataStorage.tbBoss}]";
+        NotifBoss.tbBoss = !NotifBoss.tbBoss;
+        string message = $"Thông báo boss [{NotifBoss.tbBoss}]";
         GameScr.info1.addInfo(message, 0);
     }
 
@@ -94,11 +95,11 @@ public class Utilities
     // Phương thức StartDokhu() bắt đầu chế độ đỏ khu
     private static void StartDokhu(int start)
     {
-        GameDataStorage.dokhuBoss = !GameDataStorage.dokhuBoss;
+        NotifBoss.dokhuBoss = !NotifBoss.dokhuBoss;
         new Thread(() =>
         {
             int i = start;
-            while (GameDataStorage.dokhuBoss)
+            while (NotifBoss.dokhuBoss)
             {
                 ChuyenKu(i++);
                 Thread.Sleep(DelayDokhu);
@@ -132,14 +133,6 @@ public class Utilities
     }
 
     // Phương thức Acn() bật hoặc tắt tính năng tự động tấn công
-    [ChatCommand("acn")]
-    public static void Acn()
-    {
-        atcn.gI.Toggle();
-        string message = atcn.gI.IsActing ? "Đang tự tấn công" : "Đã tắt tự tấn công";
-        GameScr.info1.addInfo(message, 0);
-    }
-
     // Phương thức ToggleTanSat() bật hoặc tắt tính năng tấn sát
     [ChatCommand("tansat")]
     [ChatCommand("ts")]

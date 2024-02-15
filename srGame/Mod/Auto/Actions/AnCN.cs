@@ -1,8 +1,8 @@
-﻿namespace Mod.Auto
+﻿namespace Mod.Auto.Actions
 {
-    public class atcn : ThreadActionUpdate<atcn>
+    public class AnCN : ThreadActionUpdate<AnCN>
     {
-        public override int Interval => 600000;
+        public override int Interval => 600000;//30 phút
 
         protected override void Update()
         {

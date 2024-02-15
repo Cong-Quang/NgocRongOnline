@@ -1,17 +1,4 @@
 ﻿using System.Collections.Generic;
-
-public class WaypointPosition
-{
-    public int X { get; private set; }
-    public int Y { get; private set; }
-
-    public WaypointPosition(int x, int y)
-    {
-        X = x;
-        Y = y;
-    }
-}
-
 public class MapUtils
 {
     // Lấy vị trí của các waypoint trên map hiện tại

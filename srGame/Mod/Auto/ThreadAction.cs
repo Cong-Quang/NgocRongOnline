@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 /// <summary>
 /// Lớp abstract để quản lý các hành động thực thi bằng thread.

@@ -6,9 +6,7 @@ public class GameDataStorage
 {
     private static readonly string FilePath = "game_data.json";
     private static GameDataStorage gi;
-    public static bool tbBoss = true;
-    public static MyVector bBoss = new MyVector();
-    public static bool dokhuBoss = false;
+   
     public static bool dapdo = false;
     public static GameDataStorage gI()
     {
