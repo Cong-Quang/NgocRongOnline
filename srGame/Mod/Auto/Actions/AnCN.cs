@@ -6,8 +6,8 @@
 
         protected override void Update()
         {
-            linhtinh.useItem(381, 0);
-            linhtinh.useItem(1099, 0);
+            Helper.useItem(381, 0);
+            Helper.useItem(1099, 0);
         }
     }
 }

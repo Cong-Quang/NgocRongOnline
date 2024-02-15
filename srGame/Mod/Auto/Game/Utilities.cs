@@ -3,13 +3,8 @@ using Mod.Auto.Actions;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
-
-
 public class Utilities
 {
-    // Hằng số DelayDokhu định nghĩa khoảng thời gian chờ giữa các lần chuyển khu khi đang ở chế độ đỏ khu
-    private const int DelayDokhu = 1340;
-
     // Phương thức EditSpeedRun() cho phép chỉnh sửa tốc độ chạy của nhân vật
     [ChatCommand("tdc")]
     [ChatCommand("cspeed")]
@@ -45,10 +40,10 @@ public class Utilities
 
     // Các phương thức dùng item cụ thể
     [ChatCommand("bongtai")]
-    public static void Bongtai() => linhtinh.useItem(921, 0);
+    public static void Bongtai() => Helper.useItem(921, 0);
 
     [ChatCommand("dungcsdb")]
-    public static void Dungcsdb() => linhtinh.useItem(194, 0);
+    public static void Dungcsdb() => Helper.useItem(194, 0);
 
     // Phương thức ThongBaoBoss() bật hoặc tắt thông báo xuất hiện của boss
     [ChatCommand("tbb")]
@@ -81,7 +76,7 @@ public class Utilities
     [ChatCommand("gohomsp")]
     public static void Gohomsp()
     {
-        linhtinh.useItem(194, 0);
+        Helper.useItem(194, 0);
         Service.gI().requestMapSelect(0);
     }
 
@@ -102,7 +97,7 @@ public class Utilities
             while (NotifBoss.dokhuBoss)
             {
                 ChuyenKu(i++);
-                Thread.Sleep(DelayDokhu);
+                Thread.Sleep(1340);
             }
         }).Start();
     }
@@ -112,13 +107,11 @@ public class Utilities
     public static void UseItem()
     {
         GameScr.info1.addInfo($"Đã ăn item", 0);
-        linhtinh.useItem(381, 0);
-        linhtinh.useItem(1099, 0);
-        linhtinh.useItem(1101, 0);
-        linhtinh.useItem(384, 0);
-        linhtinh.useItem(531, 0);
-        linhtinh.useItem(1100, 0);
-        linhtinh.useItem(382, 0);
+        List<int> idItems = new List<int>() { 381, 1099 , 1101, 384 , 531, 1100 , 382 };
+        foreach (int idItem in idItems)
+        {
+            Helper.useItem(idItem, 0);
+        }
     }
 
     // Phương thức Upcskb() bật hoặc tắt tính năng tự động nâng cấp cơ sở kiến thức
@@ -132,7 +125,6 @@ public class Utilities
         GameScr.info1.addInfo(message, 0);
     }
 
-    // Phương thức Acn() bật hoặc tắt tính năng tự động tấn công
     // Phương thức ToggleTanSat() bật hoặc tắt tính năng tấn sát
     [ChatCommand("tansat")]
     [ChatCommand("ts")]
@@ -143,6 +135,11 @@ public class Utilities
     public static void Test() 
     {
        
+    }
+    [ChatCommand("t")]
+    public static void Test(int p) 
+    {
+        
     }
 
     // Phương thức AddHotkeys() thêm các phím tắt vào trò chơi

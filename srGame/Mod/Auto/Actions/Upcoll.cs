@@ -41,12 +41,12 @@ namespace Mod.Auto.Actions
 
             if (TileMap.mapID == 99)
             {
-                linhtinh.useItem(379, 0);
+                Helper.useItem(379, 0);
                 Thread.Sleep(1800000); // Chờ 1800000 giây (30 phút)
 
-                for (int i = 0; i < 500 && linhtinh.checkUseItem; i++)
+                for (int i = 0; i < 500; i++)
                 {
-                    linhtinh.useItem(380, 0);
+                    Helper.useItem(380, 0);
                     Thread.Sleep(50);
                 }
             }
@@ -117,7 +117,7 @@ namespace Mod.Auto.Actions
                 Thread.Sleep(500);
                 if (TileMap.mapID != 27 && TileMap.mapID != 102)
                 {
-                    linhtinh.useItem(194, 0);
+                    Helper.useItem(194, 0);
                     Service.gI().requestMapSelect(9);
                 }
                 else

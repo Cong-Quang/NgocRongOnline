@@ -22,7 +22,7 @@ public class GameEvents
         // Kiểm tra và thực hiện tính năng "đập đồ"
         if (GameDataStorage.dapdo && GameCanvas.gameTick % 10 == 0)
         {
-            linhtinh.dapdo();
+            Helper.dapdo();
         }
 
         // Mở giao diện khu vực mỗi 10 giây (tính theo thời gian thực của trò chơi)

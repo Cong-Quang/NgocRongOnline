@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Threading;
 
-public class linhtinh
+public class Helper
 {
-    public static bool checkUseItem = true;
-
     /// <summary>
-    /// Hàm này được sử dụng để sử dụng hoặc bán item [0 = sử dụng] [1 = bán]
+    /// Hàm này được tạo ra để sử dụng hoặc bán item [0 = sử dụng] [1 = bán]
     /// </summary> 
     public static void useItem(int itemId, int select)
     {
-        checkUseItem = true;
         ThreadPool.QueueUserWorkItem((state) =>
         {
-            var charInstance = global::Char.myCharz(); // Lấy một lần để tránh gọi nhiều lần trong vòng lặp
+            var charInstance = global::Char.myCharz();
             for (int index = 0; index < charInstance.arrItemBag.Length; index++)
             {
                 var currentItem = charInstance.arrItemBag[index];
@@ -29,15 +26,9 @@ public class linhtinh
                             case 1:
                                 Service.gI().saleItem((sbyte)1, 1, (short)index);
                                 break;
-                            default:
-                                break;
                         }
                     }
-                    catch (Exception)
-                    {
-                        checkUseItem = false;
-                    }
-                    break;
+                    catch (Exception) { }
                 }
             }
         });
