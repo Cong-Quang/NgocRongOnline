@@ -1,23 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net35</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup>
-    <LangVersion>11.0</LangVersion>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup />
-  <ItemGroup>
-    <PackageReference Include="LitJson" Version="0.12.0" />
-    <PackageReference Include="UnityEngine" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Users\Công Quang\Downloads\Dragonboy_vn_v231\Dragonboy_vn_v231_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<PropertyGroup>
+		<AssemblyName>Assembly-CSharp</AssemblyName>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<TargetFramework>net35</TargetFramework>
+		<LangVersion>11.0</LangVersion>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="LitJson" Version="0.19.0" />
+		<PackageReference Include="UnityEngine" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
 	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
@@ -25,14 +26,9 @@
 			<DependentUpon>Resources.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="copy $(TargetPath) $(SolutionDir)Dragonboy_vn_v231\Dragonboy_vn_v231_Data\Managed" />
-		<Exec Command="echo xong" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Dragonboy_vn_v231\Dragonboy_vn_v231_Data\Managed" />
+		<Message Text="Sao chép tệp tin đã hoàn tất." />
 	</Target>
 </Project>
