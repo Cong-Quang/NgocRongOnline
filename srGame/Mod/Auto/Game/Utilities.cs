@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class Utilities
 {
     // Phương thức EditSpeedRun() cho phép chỉnh sửa tốc độ chạy của nhân vật
-    [ChatCommand("tdc", "cspeed", "s")]
+    [ChatCommand("tdc")]
+    [ChatCommand("cspeed")]
+    [ChatCommand("s")]
     public static void EditSpeedRun(int speed)
     {
         Char.myCharz().cspeed = speed;
@@ -14,7 +16,8 @@ public class Utilities
     }
 
     // Phương thức Cheat() cho phép chỉnh sửa tốc độ chơi của trò chơi
-    [ChatCommand("chs", "cheat")]
+    [ChatCommand("chs")]
+    [ChatCommand("cheat")]
     public static void Cheat(float speed)
     {
         Time.timeScale = speed;
@@ -123,7 +126,8 @@ public class Utilities
     }
 
     // Phương thức ToggleTanSat() bật hoặc tắt tính năng tấn sát
-    [ChatCommand("tansat", "ts")]
+    [ChatCommand("tansat")]
+    [ChatCommand("ts")]
     public static void ToggleTanSat() => TanSat.Interval = !TanSat.Interval;
 
     // Phương thức Test() được sử dụng cho mục đích kiểm tra

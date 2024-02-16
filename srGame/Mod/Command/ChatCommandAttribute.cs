@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using System;
-
-[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+﻿using System;
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 public class ChatCommandAttribute : Attribute
 {
-    public string[] commands;
+    public string command;
 
-    public ChatCommandAttribute(params string[] commands)
+    public ChatCommandAttribute(string command)
     {
-        this.commands = commands.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        this.command = command;
     }
 }

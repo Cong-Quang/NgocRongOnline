@@ -18,18 +18,15 @@ public class ChatCommandHandler
             var attributes = Attribute.GetCustomAttributes(m, typeof(ChatCommandAttribute));
             foreach (var a in attributes)
             {
-                if (a is ChatCommandAttribute cca && cca.commands.Any())
+                if (a is ChatCommandAttribute cca)
                 {
-                    foreach (var cmd in cca.commands)
+                    chatCommands.Add(new ChatCommand()
                     {
-                        chatCommands.Add(new ChatCommand()
-                        {
-                            command = cmd,
-                            fullCommand = m.DeclaringType.FullName + "." + m.Name,
-                            method = m,
-                            parameterInfos = m.GetParameters()
-                        });
-                    }
+                        command = cca.command,
+                        fullCommand = m.DeclaringType.FullName + "." + m.Name,  
+                        method = m,
+                        parameterInfos = m.GetParameters()
+                    });
                 }
             }
         }

@@ -530,8 +530,6 @@ public class Controller : IMessageHandler
                             GameCanvas.panel.mapNames[m] = msg.reader().readUTF();
                             GameCanvas.panel.planetNames[m] = msg.reader().readUTF();
                         }
-                        GameCanvas.panel.setTypeMapTrans();
-                        GameCanvas.panel.show();
                         break;
                     }
                 case -90:
