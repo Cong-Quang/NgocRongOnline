@@ -40,7 +40,7 @@ public class Utilities
 
     // Các phương thức dùng item cụ thể
     [ChatCommand("bongtai")]
-    public static void Bongtai() => Helper.useItem(921, 0);
+    public static void Bongtai() => Helper.useItem(454, 0);
 
     [ChatCommand("dungcsdb")]
     public static void Dungcsdb() => Helper.useItem(194, 0);
@@ -134,7 +134,11 @@ public class Utilities
     [ChatCommand("t")]
     public static void Test() 
     {
-       
+        new Thread(() =>
+        {
+            QLearningExample deepQLearning = new QLearningExample();
+            deepQLearning.Train();
+        }).Start();
     }
     [ChatCommand("t")]
     public static void Test(int p) 

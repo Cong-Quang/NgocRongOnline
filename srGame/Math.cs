@@ -28,4 +28,9 @@ public class Math
 		}
 		return num;
 	}
+
+    internal static double Sqrt(double sumOfSquares)
+    {
+        throw new NotImplementedException();
+    }
 }

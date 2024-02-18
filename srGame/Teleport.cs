@@ -171,7 +171,11 @@ public class Teleport
 
 	public void update()
 	{
-		if (planet > 2 && paintFire && y != -80)
+        if (MapUtils.xoataubay(this))
+        {
+            return;
+        }
+        if (planet > 2 && paintFire && y != -80)
 		{
 			if (isDown && tPrepare == 0)
 			{

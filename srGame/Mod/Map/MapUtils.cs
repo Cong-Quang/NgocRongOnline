@@ -1,6 +1,22 @@
 ﻿using System.Collections.Generic;
 public class MapUtils
 {
+    public static bool xoataubay(object obj)
+    {
+        Teleport teleport = (Teleport)obj;
+        if (teleport.isMe)
+        {
+            Char.myCharz().isTeleport = false;
+            if (teleport.type == 0)
+            {
+                Controller.isStopReadMessage = false;
+                Char.ischangingMap = true;
+            }
+            Teleport.vTeleport.removeElement(teleport);
+            return true;
+        }
+        return false;
+    }
     // Lấy vị trí của các waypoint trên map hiện tại
     public static List<WaypointPosition> GetWaypointsPositions()
     {

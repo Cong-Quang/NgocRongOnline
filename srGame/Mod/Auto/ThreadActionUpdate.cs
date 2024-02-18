@@ -9,7 +9,7 @@ public abstract class ThreadActionUpdate<T> : ThreadAction<T> where T : ThreadAc
     /// <summary>
     /// Trạng thái của hành động.
     /// </summary>
-    public new bool IsActing { get; private set; }
+    public new bool IsActing { get; set; }
 
     /// <summary>
     /// Thời gian chờ giữa các lần cập nhật.
